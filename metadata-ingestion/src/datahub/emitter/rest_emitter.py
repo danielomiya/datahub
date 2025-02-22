@@ -22,7 +22,7 @@ from deprecated import deprecated
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import HTTPError, RequestException
 
-from datahub import nice_version_name
+from datahub._version import nice_version_name
 from datahub.cli import config_utils
 from datahub.cli.cli_utils import ensure_has_system_metadata, fixup_gms_url, get_or_else
 from datahub.cli.env_utils import get_boolean_env_variable
@@ -374,7 +374,7 @@ class DataHubRestEmitter(Closeable, Emitter):
             # the size when chunking, and again for the actual request.
             payload_dict: dict = {"proposals": mcp_obj_chunk}
             if async_flag is not None:
-                payload_dict["async"] = True if async_flag else False
+                payload_dict["async"] = "true" if async_flag else "false"
 
             payload = json.dumps(payload_dict)
             self._emit_generic(url, payload)
